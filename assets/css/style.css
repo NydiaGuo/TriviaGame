@@ -1,0 +1,59 @@
+.back {
+	background-color: #ff3399;
+	text-align: center;
+	padding:50px;
+	margin-top: 50px;
+}
+
+body {
+	background-image: url("http://diegoslawncare.com/wp-content/uploads/2016/03/Grass-Blue-Sky-Header-V2-PNG.png");
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#options {
+	font-size: 40px;
+	cursor: pointer;
+}
+
+#options1:hover {
+	background-color: white;
+	color: black;
+	border: 3px solid green;
+}
+
+#options2:hover {
+	background-color: white;
+	color: black;
+	border: 3px solid green;
+}
+
+#options3:hover {
+	background-color: white;
+	color: black;
+	border: 3px solid green;
+}
+
+#options4:hover {
+	background-color: white;
+	color: black;
+	border: 3px solid green;
+}
+
+
+h1 {
+	font-size: 50px;
+}
+
+button {
+	font-size:40px;
+	background-color: #4CAF50;
+	color: white;
+	text-align: center;
+	padding:20px 35px;
+
+}
+
+#display {
+	font-size: 40px;
+}

@@ -1,24 +1,131 @@
-//after the player click Start that will tigger the timer and questions
-$("#start").on("click",start);
 
-function display() {
-	setTimeout(thirtySeconds,1000*30);
-	console.log(setTimeout);
+//after the player clicks Start button that will trigger the startGame function
+$("#start").on("click",startGame);
+//after the player picks answers will trigger the handleClick function
+$("#options").on("click", handleClick);
+
+var counterMax = 6;
+var counter = counterMax;
+var timer;
+var wins = 0;
+var losses = 0;
+var questionNum = 0;
+var optionsDiv = {
+	options1: $("#options1"),
+	options2: $("#options2"),
+	options3: $("#options3"),
+	options4: $("#options4")
+}
+var questionDiv = $("#questions");
+var currentQuestion = 0;
+var maxIndex = 3;
+var active = false;
+var playerPick = [];
+//var images = ["images/trump.jpg", "images/george.jpg"];
+
+//questions that will display each 30 seconds
+var items = [
+	{
+		question: "1. Who is the first persident of United States?", 
+		answer: "George Washington",
+		options: ["Michael Jackson","George Washington","Thomas Jefferson","Donald Trump"]
+	},
+
+	{
+		question: "2. Which persident of United States has/had a red hair?", 
+		answer: "Donald Trump",
+		options: ["George Washington","Thomas Jefferson","Donald Trump","Michael Jackson"]
+	},
+	{
+		question: "3. Which persident of United States has/had a red hair?", 
+		answer: "Donald Trump",
+		options: ["George Washington","Thomas Jefferson","Donald Trump","Michael Jackson"]
+	},
+	{
+		question: "4. Which persident of United States has/had a red hair?", 
+		answer: "Donald Trump",
+		options: ["George Washington","Thomas Jefferson","Donald Trump","Michael Jackson"]
+	}
+]
+
+function startGame() {
+	
+	$("#start").hide();
+	//timer counts down every 1 second
+	timer = setInterval(gameTimer, 1000);
+	counter = counterMax;
+	active = true;
+	displayQuestion(items[currentQuestion]);
 }
 
-function thritySeconds() {
-	$("#time-left").text("Time Remaining: " + setTimeout + "Seconds!");
+function handleClick(event) {
+	
+	if (active) {
+		var userChoice = event.target.innerHTML
+		console.log(userChoice)
+		//if the user picks the right answer
+		// wins will get one point
+		if (userChoice === items[currentQuestion].answer) {
+			console.log('Correct!')
+			playerPick.push(true);
+			wins++;
+			$("#totalWins").text("Wins: " + wins);
+			console.log("this is player picks: " + playerPick);
+		} 
+		//if the user picks the wrong answer
+		// losses will get one point 
+		else {
+			console.log('Wrong!');
+			playerPick.push(false);
+			losses++;
+			$("#totalLosses").text("Losses: " + losses);	
+		}
+		//call the next question
+		changeQuestion();
+	}
 }
 
-//shows only one question until the player answers it or their time runs out.
+function changeQuestion() {
+	if (currentQuestion === maxIndex) {
+		//hand the end of game
+		endOfGame();
+
+	} else {
+		counter = counterMax;
+		currentQuestion++;
+		displayQuestion(items[currentQuestion]);
+	}
+}
+
+function endOfGame() {
+	console.log(playerPick);
+	active = false;
+}
 
 
-//If the player selects the correct answer, show a screen congratulating them for choosing the right option. After a few seconds, display the next question ( do this without user input).
+function gameTimer() {
+	if (active) {
+		console.log("this is counter: " + counter);	
+		if (counter < 1) {
+			console.log("end of timer");
+			changeQuestion();
+		}
+		else {
+			counter--;
+			$("#counter").text("Time Remaining: " + counter + " Seconds!");
+		}
+	}
+}
 
-//The scenario is similar for wrong answers and time-outs.
+function displayQuestion(question) {
+	questionDiv.html(question.question);
+	optionsDiv.options1.html(question.options[0]);
+	optionsDiv.options2.html(question.options[1]);
+	optionsDiv.options3.html(question.options[2]);
+	optionsDiv.options4.html(question.options[3]);
 
-//If the player runs out of time, tell the player that time's up and display the correct answer. Wait a few seconds, then show the next question.
-//If the player chooses the wrong answer, tell the player they selected the wrong option and then display the correct answer. Wait a few seconds, then show the next question.
-//On the final screen, show the number of correct answers, incorrect answers, and an option to restart the game (without reloading the page). -->
+} 
 
-
+function showImages() {
+	
+}
